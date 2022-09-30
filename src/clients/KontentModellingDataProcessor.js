@@ -5,7 +5,7 @@ function getNodesFromData(data) {
 function getEdgesFromData(data) {
   let edges = [];
   for (let i = 0, node; (node = data[i]); i++) {
-    let typedModularContent = node.elements.filter(e => e.type == "LinkedItems" && e.allowedTypes.length > 0);
+    let typedModularContent = node.elements.filter(e => e.type == "modular_content" && e.allowedTypes.length > 0);
     for (let x = 0, mc; (mc = typedModularContent[x]); x++) {
       for (let a = 0, at; (at = mc.allowedTypes[a]); a++) {
         let newEdge = { id: `${i}_${x}_${a}`, from: node.id, to: at.id, value: 0 };
@@ -29,7 +29,7 @@ function getSelectedNodeEdges(selected, linked) {
 function getModelRelations(selected, linked) {
   let links = [];
   for (let i = 0, linkedModel; (linkedModel = linked[i]); i++) {
-    let foundLinks = linkedModel.elements.filter(e => e.type == "LinkedItems" && e.allowedTypes.length > 0 && e.allowedTypes.map(t => t.id).includes(selected.id));
+    let foundLinks = linkedModel.elements.filter(e => e.type == "modular_content" && e.allowedTypes.length > 0 && e.allowedTypes.map(t => t.id).includes(selected.id));
     let resultLink = { name: linkedModel.name, codename: linkedModel.codename, elements: [] };
     for (let x = 0, link; (link = foundLinks[x]); x++) {
       resultLink.elements.push({ name: link.name, codename: link.codename });

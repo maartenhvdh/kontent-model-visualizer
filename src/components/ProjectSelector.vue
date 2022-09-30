@@ -89,21 +89,23 @@ export default {
         this.dialog = true;
       }
     },
-    getKontentModellingData() {
+    async getKontentModellingData() {
       this.loading = true;
-      KontentModellingClient.getKontentModelInfo(this.projectId, this.apiKey)
-        .then(response => {
+      let response = await KontentModellingClient.getKontentModelInfo(this.projectId, this.apiKey)
+        try {
           this.finishProcessing();
-          this.projectData = response.data;
+          this.projectData = response;
           this.projectData.projectId = this.projectId;
           this.$globalEvents.$emit("data", this.projectData);
           this.$globalEvents.$emit("no-error");
-        })
-        .catch(ex => {
+        
+        }
+        catch(ex) 
+        {
           console.log(ex);
           this.finishProcessing();
           this.$globalEvents.$emit("error", "Something went wrong, try again later!");
-        });
+        }
     },
     finishProcessing() {
       this.apiKey = null;
