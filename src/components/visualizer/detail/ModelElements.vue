@@ -62,38 +62,40 @@ export default {
   computed: {
     filteredElements() {
       if (this.showAllElements) return this.elements;
-      return this.elements.filter(e => e.type == "LinkedItems");
+      return this.elements.filter(e => e.type == "modular_content");
     }
   },
   methods: {
     iconFromType(type) {
+      console.log(type);
       switch (type) {
-        case "Text":
+        case "text":
           return "mdi-text-short";
-        case "RichText":
+        case "rich_text":
           return "mdi-text-subject";
-        case "Number":
+        case "number":
           return "mdi-pound";
-        case "MultipleChoice":
+        case "multiple_choice":
           return "mdi-checkbox-marked";
-        case "DateTime":
+        case "date_time":
           return "mdi-calendar-month";
-        case "Asset":
+        case "asset":
           return "mdi-image-area";
-        case "LinkedItems":
+        case "modular_content":
           return "mdi-puzzle";
-        case "Custom":
+        case "custom":
           return "mdi-qrcode-edit";
-        case "Guidelines":
+        case "guidelines":
           return "mdi-vector-polyline";
-        case "Taxonomy":
+        case "taxonomy":
           return "mdi-inbox-multiple";
-        case "UrlSlug":
+        case "url_slug":
           return "mdi-link";
-        case "ContentTypeSnippet":
+        case "content_type_snippet":
           return "mdi-format-list-text";
+        default: 
+          return "mdi-tab-unselected"
       }
-      return "";
     }
   }
 };

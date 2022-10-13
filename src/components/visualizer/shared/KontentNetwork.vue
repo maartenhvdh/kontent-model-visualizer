@@ -1,6 +1,6 @@
 <template>
   <v-card outlined class="pa-4">
-    <network-toolbar :buttons="buttons" @fit="fit" @save="save"></network-toolbar>
+    <network-toolbar :buttons="buttons" @fit="fit"></network-toolbar>
     <network
       ref="network"
       class="network"
@@ -10,15 +10,14 @@
       :options="options"
       @select-node="nodeSelected"
       @click="networkClicked"
+      @after-drawing="checkLoaded"
     ></network>
-    <saving-dialog :open="warningDialog" @save="reallySave" @close="warningDialog=false"></saving-dialog>
   </v-card>
 </template>
 <script>
 import { DataSet, Network } from "vue2vis";
 
 import NetworkToolbar from "./NetworkToolbar";
-import SavingDialog from "./SavingDialog";
 
 export default {
   props: {
@@ -34,22 +33,18 @@ export default {
       type: Object,
       default: () => ({
         fullscreen: true,
-        fit: true,
-        save: true
+        fit: true
       })
-    },
-    saveWarningRead: {
-      type: Boolean,
-      default: () => false
     },
     canvasId: {
       type: Number,
       default: () => 0
     }
   },
-  components: { Network, NetworkToolbar, SavingDialog },
+  components: { Network, NetworkToolbar },
   data() {
     return {
+      loaded: false,
       nodesDataSet: [],
       edgesDataSet: [],
       isFullscreen: false,
@@ -117,6 +112,7 @@ export default {
     this.$globalEvents.$on("focus", nodeId => this.focus(nodeId));
     this.$globalEvents.$on("selectNode", data => this.nodeSelected(data));
     this.$globalEvents.$on("fullscreen", value => (this.isFullscreen = value));
+    this.loaded = false;
   },
   methods: {
     nodeSelected(data) {
@@ -158,25 +154,14 @@ export default {
     fullscreen() {
       this.isFullscreen = true;
     },
-    save() {
-      if (!this.saveWarningRead) {
-        this.warningDialog = true;
-      } else {
-        this.reallySave();
-      }
-    },
-    reallySave() {
-      this.warningDialog = false;
-      this.$globalEvents.$emit("saveWarningRead");
-
-      var canvas = document.querySelector(`#network_${this.canvasId} canvas`);
-      var link = document.createElement("a");
-      link.download = "KontentModel.jpg";
-      link.href = canvas.toDataURL();
-      link.click();
-    },
     focus(nodeId) {
       this.$refs.network.focus(nodeId);
+    },
+    checkLoaded() {
+      if(!this.loaded) {
+        this.$globalEvents.$emit("stop-loading");
+        this.loaded = true;
+      }
     }
   }
 };

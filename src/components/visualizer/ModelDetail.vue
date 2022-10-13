@@ -8,7 +8,6 @@
           :nodes="nodes"
           :edges="edges"
           :buttons="networkButtons"
-          :saveWarningRead="saveWarningRead"
           @nodeSelected="nodeSelected"
           @nodeUnselected="nodeUnselected"
         ></kontent-network>
@@ -41,7 +40,7 @@ import ModelLinks from "./detail/ModelLinks";
 import ModelLinkDetail from "./detail/ModelLinkDetail";
 
 export default {
-  props: ["modelData", "saveWarningRead", "id"],
+  props: ["modelData", "id"],
   components: {
     KontentNetwork,
     ModelElements,
@@ -56,8 +55,7 @@ export default {
       links: null,
       selectedNode: null,
       networkButtons: {
-        fit: true,
-        save: true
+        fit: true
       }
     };
   },

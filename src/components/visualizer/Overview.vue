@@ -7,13 +7,15 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row v-if="loading" justify="center" align="start">
+          <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
+    </v-row>
     <v-row v-if="modelData" justify="center" align="start">
       <v-col :cols="fullscreenDiagram ? 12 : 8" :class="fullscreenDiagram ?'ma-0 pa-0' : '' ">
         <kontent-network
           ref="network"
           :nodes="nodes"
           :edges="edges"
-          :saveWarningRead="saveWarningRead"
           @nodeSelected="nodeSelected"
           @nodeUnselected="nodeUnselected"
         ></kontent-network>
@@ -40,14 +42,15 @@ import ModelSearch from "./overview/ModelSearch";
 import KontentNetwork from "./shared/KontentNetwork";
 
 export default {
-  props: ["modelData", "saveWarningRead"],
+  props: ["modelData"],
   data() {
     return {
       fullscreenDiagram: false,
       rawData: null,
       nodes: null,
       edges: null,
-      selectedNode: null
+      selectedNode: null,
+      loading: true
     };
   },
   components: {
@@ -65,6 +68,7 @@ export default {
   },
   created() {
     this.$globalEvents.$on("fullscreen", value => this.fullscreen(value));
+    this.$globalEvents.$on("stop-loading", () => this.loading = false);
   },
   methods: {
     processData(data) {

@@ -2,6 +2,7 @@
   <v-app id="inspire">
     <v-content>
       <v-container :class="fullscreenDiagram ? `pt-3` : `pt-1 pb-0`">
+        <img id="logo" src="/kai-logo.png" />
         <error-handler></error-handler>
         <project-selector v-show="!fullscreenDiagram"></project-selector>
         <visualizer></visualizer>
@@ -31,11 +32,18 @@ export default {
 };
 </script>
 <style>
+#logo {
+  width: 150px;
+  float: left;
+  clear: both;
+  margin-top: 10px;
+  margin-left: 5px;
+}
 .container {
   max-width: 95vw;
 }
 
 .application {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Work Sans", sans-serif;
 }
 </style>

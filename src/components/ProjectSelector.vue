@@ -13,7 +13,7 @@
     </v-row>
     <v-row v-else align="center" justify="center" class="pa-0 ma-0">
       <v-col cols="3">
-        <v-text-field label="Kontent Project Id" v-model="projectId"></v-text-field>
+        <v-text-field label="Kontent.ai Project Id" v-model="projectId"></v-text-field>
       </v-col>
       <v-col cols="2">
         <v-btn

@@ -9,10 +9,10 @@
     </v-tabs>
     <v-tabs-items v-model="tab">
       <v-tab-item>
-        <overview :modelData="modelData" :saveWarningRead="saveWarningRead"></overview>
+        <overview :modelData="modelData"></overview>
       </v-tab-item>
       <v-tab-item v-for="(t,i) in tabs" :key="t.id" v-show="!fullscreenDiagram">
-        <model-detail :modelData="t" :saveWarningRead="saveWarningRead" :id="i+1"></model-detail>
+        <model-detail :modelData="t" :id="i+1"></model-detail>
       </v-tab-item>
     </v-tabs-items>
   </v-card>
@@ -31,15 +31,13 @@ export default {
       tab: 0,
       tabs: [],
       modelData: null,
-      fullscreenDiagram: false,
-      saveWarningRead: false
+      fullscreenDiagram: false
     };
   },
   created() {
     this.$globalEvents.$on("data", modelData => (this.modelData = modelData));
     this.$globalEvents.$on("addTab", tab => this.addTab(tab));
     this.$globalEvents.$on("fullscreen", value => (this.fullscreenDiagram = value));
-    this.$globalEvents.$on("saveWarningRead", () => (this.saveWarningRead = true));
   },
   methods: {
     addTab(data) {

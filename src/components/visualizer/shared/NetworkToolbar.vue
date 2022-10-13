@@ -4,7 +4,7 @@
       <v-col cols="3" class="pa-0 ma-0 pl-1">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-btn v-show="buttons.fullscreen" class="ma-1" text icon @click="fullscreen">
+            <v-btn v-show="!isFullscreen" class="ma-1" text icon @click="fullscreen">
               <v-icon v-on="on">mdi-overscan</v-icon>
             </v-btn>
           </template>
@@ -18,14 +18,6 @@
           </template>
           <span>center the diagram</span>
         </v-tooltip>
-        <!--<v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-show="buttons.save" class="ma-1" text icon @click="save">
-              <v-icon v-on="on">mdi-file-download-outline</v-icon>
-            </v-btn>
-          </template>
-          <span>save diagram as png</span>
-        </v-tooltip>-->
       </v-col>
       <v-col :cols="isFullscreen ? 8 : 9"></v-col>
       <v-col cols="1" v-if="isFullscreen" align="right" class="pa-0 ma-0 pl-1">
@@ -56,9 +48,6 @@ export default {
     },
     fit() {
       this.$emit("fit");
-    },
-    save() {
-      this.$emit("save");
     },
     close() {
       this.$globalEvents.$emit("fullscreen", false);

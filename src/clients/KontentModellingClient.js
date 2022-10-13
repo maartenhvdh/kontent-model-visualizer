@@ -10,7 +10,6 @@ async function getKontentModelInfo(projectId, apiKey) {
     const response = await client.listContentTypes().toAllPromise();
     let result = [];
     for(let item of response.data.items) {
-        console.log(item);
         let contentType = {
             codename: item.codename,
             id: item.id,
