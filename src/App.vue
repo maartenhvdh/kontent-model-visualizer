@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-content>
       <v-container :class="fullscreenDiagram ? `pt-3` : `pt-1 pb-0`">
-        <img id="logo" src="./kai-logo.png" />
+        <img id="logo" :src="require('./../public/kai-logo.png')" />
         <error-handler></error-handler>
         <project-selector v-show="!fullscreenDiagram"></project-selector>
         <visualizer></visualizer>
