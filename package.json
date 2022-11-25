@@ -2,9 +2,9 @@
   "name": "kontent-model-visualizer",
   "version": "1.0.0",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "serve": "vue-cli-service --openssl-legacy-provider serve",
+    "build": "vue-cli-service --openssl-legacy-provider build",
+    "lint": "vue-cli-service --openssl-legacy-provider lint"
   },
   "dependencies": {
     "@kontent-ai/management-sdk": "^3.3.0",
